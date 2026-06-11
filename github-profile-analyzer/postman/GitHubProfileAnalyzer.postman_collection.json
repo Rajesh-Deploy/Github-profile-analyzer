@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "87ca8350-dfc7-4c7c-87d2-64f33b1e32ad",
+		"name": "GitHub Profile Analyzer API",
+		"description": "API requests for the GitHub Profile Analyzer backend service. Includes endpoints for analysis, querying, updating, deletion, and stats calculations.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "Analyze Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"torvalds\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/profiles/analyze?refresh=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profiles",
+								"analyze"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "false",
+									"description": "Force refresh by querying GitHub directly instead of returning cached profile analysis"
+								}
+							]
+						},
+						"description": "Submits a GitHub username to analyze profile stats, calculate developer scores, and persist to MySQL. If already cached, returns the cached entity unless refresh=true is specified."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Profiles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profiles?page=1&limit=10&sortBy=developer_score&order=DESC",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profiles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Pagination page number"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Number of items per page"
+								},
+								{
+									"key": "sortBy",
+									"value": "developer_score",
+									"description": "Field to sort by"
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"description": "Sorting order direction (ASC or DESC)"
+								},
+								{
+									"key": "username",
+									"value": "tor",
+									"disabled": true,
+									"description": "Search for usernames (partial match query)"
+								}
+							]
+						},
+						"description": "Retrieves profiles list with support for pagination, sorting, and name searches."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profiles/:username",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profiles",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "torvalds"
+								}
+							]
+						},
+						"description": "Returns full analyzed insights and cached stats for a specific user username."
+					},
+					"response": []
+				},
+				{
+					"name": "Reanalyze Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profiles/:username/reanalyze",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profiles",
+								":username",
+								"reanalyze"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "torvalds"
+								}
+							]
+						},
+						"description": "Fetches fresh data from GitHub API and updates the profile data stored in the local database."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Profile",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/profiles/:username",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"profiles",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "torvalds"
+								}
+							]
+						},
+						"description": "Deletes the profile from local database."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analytics & Standings",
+			"item": [
+				{
+					"name": "Get Aggregate Analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/analytics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analytics"
+							]
+						},
+						"description": "Returns aggregate database insights: total profiles count, averages, and the highest scoring developer."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top Developers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/top-developers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"top-developers"
+							]
+						},
+						"description": "Returns top 10 profiles in the database sorted by developer_score."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		}
+	]
+}
