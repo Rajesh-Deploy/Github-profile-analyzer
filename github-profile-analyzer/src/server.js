@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
+    console.log("Before authenticate");
     // 1. Authenticate connection with MySQL
     await connectDB();
 
@@ -17,7 +18,7 @@ const startServer = async () => {
     console.log('Database synchronized successfully.');
 
     // 3. Start HTTP server
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`================================================`);
       console.log(`  GitHub Profile Analyzer API is running!       `);
       console.log(`  Port: ${PORT}                                 `);
