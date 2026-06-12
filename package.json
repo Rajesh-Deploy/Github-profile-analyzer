@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "github-profile-analyzer",
-    "github-profile-analyzer-frontend"
+    "backend",
+    "frontend"
   ],
   "scripts": {
-    "build": "npm run build --workspace=github-profile-analyzer-frontend",
-    "start": "npm start --workspace=github-profile-analyzer",
-    "dev": "npm run dev --workspace=github-profile-analyzer"
+    "install-all": "npm install",
+    "build:frontend": "npm run build --workspace=frontend",
+    "start:backend": "npm start --workspace=backend",
+    "start:frontend": "npm start --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend"
   }
 }

@@ -3,6 +3,10 @@ const { connectDB, sequelize } = require('./config/database');
 require('dotenv').config();
 
 const PORT = process.env.PORT;
+if (!PORT) {
+  console.error("CRITICAL ERROR: The PORT environment variable is not defined. The Express backend requires process.env.PORT to be set to start.");
+  process.exit(1);
+}
 const baseUrl = process.env.BACKEND_URL || `http://localhost:${PORT}`;
 
 const startServer = async () => {

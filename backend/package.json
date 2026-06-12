@@ -1,5 +1,5 @@
 {
-  "name": "github-profile-analyzer",
+  "name": "backend",
   "version": "1.0.0",
   "description": "Production-ready backend service that analyzes a GitHub user's public profile and stores statistics and insights in MySQL.",
   "main": "src/server.js",
