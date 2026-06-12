@@ -2,6 +2,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { API_BASE_URL } from '../config';
 
+console.log("The API_URL", API_BASE_URL);
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30000, // 30s timeout since analyzing profile calls external GitHub API which can take time
@@ -15,7 +16,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     let errorMessage = 'An unexpected error occurred';
-    
+
     if (error.response) {
       errorMessage = error.response.data?.message || errorMessage;
     } else if (error.request) {
@@ -23,7 +24,7 @@ api.interceptors.response.use(
     } else {
       errorMessage = error.message;
     }
-    
+
     console.error('[API Error]:', error);
     // Don't show toast for 404 cache checks, handle them gracefully in controllers
     return Promise.reject(new Error(errorMessage));
