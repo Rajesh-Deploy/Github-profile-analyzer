@@ -2,7 +2,7 @@ const app = require('./app');
 const { connectDB, sequelize } = require('./config/database');
 require('dotenv').config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 const baseUrl = process.env.BACKEND_URL || `http://localhost:${PORT}`;
 
 const startServer = async () => {
