@@ -1,0 +1,14 @@
+{
+  "name": "github-profile-analyzer-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "github-profile-analyzer",
+    "github-profile-analyzer-frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=github-profile-analyzer-frontend",
+    "start": "npm start --workspace=github-profile-analyzer",
+    "dev": "npm run dev --workspace=github-profile-analyzer"
+  }
+}

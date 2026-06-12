@@ -2,8 +2,8 @@ const app = require('./app');
 const { connectDB, sequelize } = require('./config/database');
 require('dotenv').config();
 
-const PORT = process.env.PORT;
-const baseUrl = process.env.BACKEND_URL || `http://localhost:${port}`;
+const PORT = process.env.PORT || 5000;
+const baseUrl = process.env.BACKEND_URL || `http://localhost:${PORT}`;
 
 const startServer = async () => {
   try {
@@ -24,7 +24,7 @@ const startServer = async () => {
       console.log(`  GitHub Profile Analyzer API is running!       `);
       console.log(`  Port: ${PORT}                                 `);
       console.log(`  Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`  Documentation: http://${baseUrl}:${PORT}/api/docs`);
+      console.log(`  Documentation: ${baseUrl}/api/docs`);
       console.log(`================================================`);
     });
   } catch (error) {

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -77,18 +78,25 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Serve static files from the React app build folder
+const frontendBuildPath = path.join(__dirname, '../../github-profile-analyzer-frontend/dist');
+app.use(express.static(frontendBuildPath));
+
 // Health Check Endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'UP' });
 });
 
-// Redirect root or index to Swagger Docs for easy access
-app.get('/', (req, res) => {
-  res.redirect('/api/docs');
-});
-
 // 5. Mount API Routes
 app.use('/api', profileRoutes);
+
+// Catch-all route to serve the React frontend index.html for client-side routing
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return next();
+  }
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
+});
 
 // 6. Handle 404 Route Not Found
 app.use((req, res, next) => {
