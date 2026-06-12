@@ -28,6 +28,7 @@ app.use(helmet({
 // Configure CORS to restrict allowed origins in production
 const allowedOrigins = [
   process.env.FRONTEND_URL,
+  process.env.BACKEND_URL,
   'http://localhost:5173',
   'http://localhost:3000'
 ].filter(Boolean);
